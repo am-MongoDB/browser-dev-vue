@@ -1,28 +1,43 @@
 <template>
   <div id="app">
-    <img width="25%" src="./assets/logo.png">
-    <HelloWorld msg="Hello Vue in CodeSandbox!" />
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld";
+import Vue from 'vue'
+import Buefy from 'buefy'
+import 'buefy/dist/buefy.css'
+import Vuex from 'vuex'
+import config from './config.js'
+import {
+    mapState, 
+    mapMutations 
+    } from 'vuex';
+Vue.use(Buefy);
+Vue.use(Vuex);
 
 export default {
-  name: "App",
-  components: {
-    HelloWorld
+  name: config.appName,
+  data() {
+    return {
+    }
+  },
+  computed: {
+    ...mapState([
+        'database',
+        'user',
+        'userFirstName'
+    ]),
+  },
+  methods: {
+    ...mapMutations([
+      'setLoggedIn',
+      'setUser',
+      'setUserFirstName'
+    ]),
+  },
+  created() {
   }
-};
-</script>
-
-<style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
-</style>
+</script>
